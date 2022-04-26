@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  demo-api:
+    container_name: demo-api
+    depends_on:
+      - mongodb
+    restart: always
+    volumes:
+      - ./demo-api:/usr/src/app
+    ports:
+      - 3000:3000
+    build:
+      context: ./demo-api
+      dockerfile: Dockerfile
+  mongodb:
+    image: mongo:4.4
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - dbdata:/data/db
+
+volumes:
+  dbdata:
